@@ -13,8 +13,7 @@ package pwd;
 public class CheckStrength {
 
 	public enum LEVEL {
-		EASY, MIDIUM, STRONG, VERY_STRONG, EXTREMELY_STRONG
-	}
+		EASY, MIDIUM, STRONG, VERY_STRONG, EXTREMELY_STRONG, WRONG_PASSWORD;
 
 	private static final int NUM = 1;
 	private static final int SMALL_LETTER = 2;
@@ -93,7 +92,6 @@ public class CheckStrength {
 
 			return level;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return level=-1;
 		}
@@ -256,6 +254,8 @@ public class CheckStrength {
 	public static LEVEL getPasswordStrength(String passwd) {
 		int level = checkPasswordLevel(passwd);
 		switch (level) {
+			case -1:
+				return LEVEL.WRONG_PASSWORD;
 			case 0:
 			case 1:
 			case 2:
