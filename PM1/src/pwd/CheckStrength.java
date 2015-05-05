@@ -49,6 +49,7 @@ public class CheckStrength {
                 }
 
                 return level;
+                
             } catch (Exception e) {
                 e.printStackTrace();
                 return level=-1;

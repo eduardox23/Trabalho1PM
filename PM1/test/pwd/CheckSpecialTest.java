@@ -44,12 +44,20 @@ public class CheckSpecialTest {
     public void testCheckStrength() {
         System.out.println("checkStrength");
         String password = "";
-        CheckSpecial instance = new CheckSpecial();
+        CheckSpecial instance = new  CheckSpecial();
         int expResult = 0;
         int result = instance.checkStrength(password);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+      
+    }
+     @Test
+    public void testCheckStrength1() {
+        System.out.println("checkStrength");
+        String password = "[%$&+º%$&+º%$&+º%$&+º%$&+º%$&+º";
+        CheckSpecial instance = new  CheckSpecial();
+        int expResult = 7;
+        int result = instance.checkStrength(password);
+        assertEquals(expResult, result);
     }
     
 }

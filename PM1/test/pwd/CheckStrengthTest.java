@@ -48,23 +48,21 @@ public class CheckStrengthTest {
         int expResult = 0;
         int result = instance.checkPasswordLevel(passwd);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
 
     /**
      * Test of getPasswordStrength method, of class CheckStrength.
      */
-    @Test
-    public void testGetPasswordStrength() {
-        System.out.println("getPasswordStrength");
-        String passwd = "";
-        CheckStrength instance = null;
-        CheckStrength.LEVEL expResult = null;
-        CheckStrength.LEVEL result = instance.getPasswordStrength(passwd);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+   // @Test
+//    public void testGetPasswordStrength() {
+//        System.out.println("getPasswordStrength");
+//        String passwd = "";
+//        CheckStrength instance = new CheckStrength();
+//        CheckStrength.LEVEL expResult = null;
+//        CheckStrength.LEVEL result = instance.getPasswordStrength(passwd);
+//        assertEquals(expResult, result);
+//       
+   }
     
-}
+
