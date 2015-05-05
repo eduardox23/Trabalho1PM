@@ -13,7 +13,8 @@ package pwd;
 public class CheckStrength {
 
 	public enum LEVEL {
-		EASY, MIDIUM, STRONG, VERY_STRONG, EXTREMELY_STRONG, WRONG_PASSWORD;
+		EASY, MIDIUM, STRONG, VERY_STRONG, EXTREMELY_STRONG, WRONG_PASSWORD
+		}
 
 	private static final int NUM = 1;
 	private static final int SMALL_LETTER = 2;
@@ -169,77 +170,88 @@ public class CheckStrength {
 	private static int pwdUpLevel(String passwd, int len) {
 		int level = 0;
 
-		// increase points
-		if (countLetter(passwd, NUM) > 0) {
-			level++;
-		}
-		if (countLetter(passwd, SMALL_LETTER) > 0) {
-			level++;
-		}
-		if (len > 4 && countLetter(passwd, CAPITAL_LETTER) > 0) {
-			level++;
-		}
-		if (len > 6 && countLetter(passwd, OTHER_CHAR) > 0) {
-			level++;
-		}
-
-		if (len > 4 && countLetter(passwd, NUM) > 0 && countLetter(passwd, SMALL_LETTER) > 0
-				|| countLetter(passwd, NUM) > 0 && countLetter(passwd, CAPITAL_LETTER) > 0
-				|| countLetter(passwd, NUM) > 0 && countLetter(passwd, OTHER_CHAR) > 0
-				|| countLetter(passwd, SMALL_LETTER) > 0 && countLetter(passwd, CAPITAL_LETTER) > 0
-				|| countLetter(passwd, SMALL_LETTER) > 0 && countLetter(passwd, OTHER_CHAR) > 0
-				|| countLetter(passwd, CAPITAL_LETTER) > 0 && countLetter(passwd, OTHER_CHAR) > 0) {
-			level++;
-		}
-
-		if (len > 6 && countLetter(passwd, NUM) > 0 && countLetter(passwd, SMALL_LETTER) > 0
-				&& countLetter(passwd, CAPITAL_LETTER) > 0 || countLetter(passwd, NUM) > 0
-				&& countLetter(passwd, SMALL_LETTER) > 0 && countLetter(passwd, OTHER_CHAR) > 0
-				|| countLetter(passwd, NUM) > 0 && countLetter(passwd, CAPITAL_LETTER) > 0
-				&& countLetter(passwd, OTHER_CHAR) > 0 || countLetter(passwd, SMALL_LETTER) > 0
-				&& countLetter(passwd, CAPITAL_LETTER) > 0 && countLetter(passwd, OTHER_CHAR) > 0) {
-			level++;
-		}
-
-		if (len > 8 && countLetter(passwd, NUM) > 0 && countLetter(passwd, SMALL_LETTER) > 0
-				&& countLetter(passwd, CAPITAL_LETTER) > 0 && countLetter(passwd, OTHER_CHAR) > 0) {
-			level++;
-		}
-
-		if (len > 6 && countLetter(passwd, NUM) >= 3 && countLetter(passwd, SMALL_LETTER) >= 3
-				|| countLetter(passwd, NUM) >= 3 && countLetter(passwd, CAPITAL_LETTER) >= 3
-				|| countLetter(passwd, NUM) >= 3 && countLetter(passwd, OTHER_CHAR) >= 2
-				|| countLetter(passwd, SMALL_LETTER) >= 3 && countLetter(passwd, CAPITAL_LETTER) >= 3
-				|| countLetter(passwd, SMALL_LETTER) >= 3 && countLetter(passwd, OTHER_CHAR) >= 2
-				|| countLetter(passwd, CAPITAL_LETTER) >= 3 && countLetter(passwd, OTHER_CHAR) >= 2) {
-			level++;
-		}
-
-		if (len > 8 && countLetter(passwd, NUM) >= 2 && countLetter(passwd, SMALL_LETTER) >= 2
-				&& countLetter(passwd, CAPITAL_LETTER) >= 2 || countLetter(passwd, NUM) >= 2
-				&& countLetter(passwd, SMALL_LETTER) >= 2 && countLetter(passwd, OTHER_CHAR) >= 2
-				|| countLetter(passwd, NUM) >= 2 && countLetter(passwd, CAPITAL_LETTER) >= 2
-				&& countLetter(passwd, OTHER_CHAR) >= 2 || countLetter(passwd, SMALL_LETTER) >= 2
-				&& countLetter(passwd, CAPITAL_LETTER) >= 2 && countLetter(passwd, OTHER_CHAR) >= 2) {
-			level++;
-		}
-
-		if (len > 10 && countLetter(passwd, NUM) >= 2 && countLetter(passwd, SMALL_LETTER) >= 2
-				&& countLetter(passwd, CAPITAL_LETTER) >= 2 && countLetter(passwd, OTHER_CHAR) >= 2) {
-			level++;
-		}
-
-		if (countLetter(passwd, OTHER_CHAR) >= 3) {
-			level++;
-		}
-		if (countLetter(passwd, OTHER_CHAR) >= 6) {
-			level++;
-		}
-
-		if (len > 12) {
-			level++;
-			if (len >= 16) {
+		if(len <= 4 ){
+			if (countLetter(passwd, NUM) > 0) {
 				level++;
+			}
+			if (countLetter(passwd, SMALL_LETTER) > 0) {
+				level++;
+			}
+			//repete esse código em relação ao de baixo pois pode se ter pwd com 4simbolos
+			if (countLetter(passwd, OTHER_CHAR) >= 3) {
+				level++;
+			}
+			
+		}else{
+			
+			if (len > 4 && countLetter(passwd, CAPITAL_LETTER) > 0) {
+				level++;
+			}
+			if (len > 6 && countLetter(passwd, OTHER_CHAR) > 0) {
+				level++;
+			}
+			
+			//devemos manter cada check desse , que se repete para o mesmo tamanho de pwd ? ou mudar pra checar se occorre qualquer um
+			//com regexpress
+			
+			if (len > 4 && countLetter(passwd, NUM) > 0 && countLetter(passwd, SMALL_LETTER) > 0
+					|| countLetter(passwd, NUM) > 0 && countLetter(passwd, CAPITAL_LETTER) > 0
+					|| countLetter(passwd, NUM) > 0 && countLetter(passwd, OTHER_CHAR) > 0
+					|| countLetter(passwd, SMALL_LETTER) > 0 && countLetter(passwd, CAPITAL_LETTER) > 0
+					|| countLetter(passwd, SMALL_LETTER) > 0 && countLetter(passwd, OTHER_CHAR) > 0
+					|| countLetter(passwd, CAPITAL_LETTER) > 0 && countLetter(passwd, OTHER_CHAR) > 0) {
+				level++;
+			}
+		
+			if (len > 6 && countLetter(passwd, NUM) > 0 && countLetter(passwd, SMALL_LETTER) > 0
+					&& countLetter(passwd, CAPITAL_LETTER) > 0 || countLetter(passwd, NUM) > 0
+					&& countLetter(passwd, SMALL_LETTER) > 0 && countLetter(passwd, OTHER_CHAR) > 0
+					|| countLetter(passwd, NUM) > 0 && countLetter(passwd, CAPITAL_LETTER) > 0
+					&& countLetter(passwd, OTHER_CHAR) > 0 || countLetter(passwd, SMALL_LETTER) > 0
+					&& countLetter(passwd, CAPITAL_LETTER) > 0 && countLetter(passwd, OTHER_CHAR) > 0) {
+				level++;
+			}
+		
+			if (len > 8 && countLetter(passwd, NUM) > 0 && countLetter(passwd, SMALL_LETTER) > 0
+					&& countLetter(passwd, CAPITAL_LETTER) > 0 && countLetter(passwd, OTHER_CHAR) > 0) {
+				level++;
+			}
+		
+			if (len > 6 && countLetter(passwd, NUM) >= 3 && countLetter(passwd, SMALL_LETTER) >= 3
+					|| countLetter(passwd, NUM) >= 3 && countLetter(passwd, CAPITAL_LETTER) >= 3
+					|| countLetter(passwd, NUM) >= 3 && countLetter(passwd, OTHER_CHAR) >= 2
+					|| countLetter(passwd, SMALL_LETTER) >= 3 && countLetter(passwd, CAPITAL_LETTER) >= 3
+					|| countLetter(passwd, SMALL_LETTER) >= 3 && countLetter(passwd, OTHER_CHAR) >= 2
+					|| countLetter(passwd, CAPITAL_LETTER) >= 3 && countLetter(passwd, OTHER_CHAR) >= 2) {
+				level++;
+			}
+		
+			if (len > 8 && countLetter(passwd, NUM) >= 2 && countLetter(passwd, SMALL_LETTER) >= 2
+					&& countLetter(passwd, CAPITAL_LETTER) >= 2 || countLetter(passwd, NUM) >= 2
+					&& countLetter(passwd, SMALL_LETTER) >= 2 && countLetter(passwd, OTHER_CHAR) >= 2
+					|| countLetter(passwd, NUM) >= 2 && countLetter(passwd, CAPITAL_LETTER) >= 2
+					&& countLetter(passwd, OTHER_CHAR) >= 2 || countLetter(passwd, SMALL_LETTER) >= 2
+					&& countLetter(passwd, CAPITAL_LETTER) >= 2 && countLetter(passwd, OTHER_CHAR) >= 2) {
+				level++;
+			}
+		
+			if (len > 10 && countLetter(passwd, NUM) >= 2 && countLetter(passwd, SMALL_LETTER) >= 2
+					&& countLetter(passwd, CAPITAL_LETTER) >= 2 && countLetter(passwd, OTHER_CHAR) >= 2) {
+				level++;
+			}
+		
+			if (countLetter(passwd, OTHER_CHAR) >= 3) {
+				level++;
+			}
+			if (countLetter(passwd, OTHER_CHAR) >= 6) {
+				level++;
+			}
+		
+			if (len > 12) {
+				level++;
+				if (len >= 16) {
+					level++;
+				}
 			}
 		}
 		return level;
