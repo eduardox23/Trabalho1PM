@@ -115,11 +115,8 @@ public class CheckStrength {
 		if ("qwertyuiop".indexOf(passwd) > 0 || "asdfghjkl".indexOf(passwd) > 0 || "zxcvbnm".indexOf(passwd) > 0) {
 			level--;
 		}
-		if (StringUtils.isNumeric(passwd) && ("01234567890".indexOf(passwd) > 0 || "09876543210".indexOf(passwd) > 0)) {
-			level--;
-		}
 
-		if (countLetter(passwd, NUM) == len || countLetter(passwd, SMALL_LETTER) == len
+		if (countLetter(passwd, SMALL_LETTER) == len
 				|| countLetter(passwd, CAPITAL_LETTER) == len) {
 			level--;
 		}
@@ -143,19 +140,6 @@ public class CheckStrength {
 			}
 		}
 
-		if (StringUtils.isNumeric(passwd) && len >= 6) { // 19881010 or 881010
-			int year = 0;
-			if (len == 8 || len == 6) {
-				year = Integer.parseInt(passwd.substring(0, len - 4));
-			}
-			int size = StringUtils.sizeOfInt(year);
-			int month = Integer.parseInt(passwd.substring(size, size + 2));
-			int day = Integer.parseInt(passwd.substring(size + 2, len));
-			if (year >= 1950 && year < 2050 && month >= 1 && month <= 12 && day >= 1 && day <= 31) {
-				level--;
-			}
-		}
-
 		if (null != DICTIONARY && DICTIONARY.length > 0) {// dictionary
 			for (int i = 0; i < DICTIONARY.length; i++) {
 				if (passwd.equals(DICTIONARY[i]) || DICTIONARY[i].indexOf(passwd) >= 0) {
@@ -165,63 +149,12 @@ public class CheckStrength {
 			}
 		}
 
-		if (len <= 6) {
-			level--;
-			if (len <= 4) {
-				level--;
-				if (len <= 3) {
-					level = 0;
-				}
-			}
-		}
 		return level;
 	}
 
 	private static int pwdUpLevel(String passwd, int len) {
 		int level = 0;
-
-		if(len <= 4 ){
-			if (passwd.matches(partialRegexChecks[0])) {
-				level++;
-			}
-			if (passwd.matches(partialRegexChecks[2])) {
-				level++;
-			}
-			//repete esse código em relação ao de baixo pois pode se ter pwd com 4simbolos
-			if (countLetter(passwd, OTHER_CHAR) >= 3) {
-				level++;
-			}
-			
-		}else{
-			
-			if (len > 4 && passwd.matches(partialRegexChecks[1])) {
-				level++;
-			}
-			if (len > 6 && passwd.matches(partialRegexChecks[3])) {
-				level++;
-			}
-			
-			//devemos manter cada check desse , que se repete para o mesmo tamanho de pwd ? ou mudar pra checar se occorre qualquer um
-			//com regexpress
-			
-			if (len > 4 && passwd.matches(partialRegexChecks[2]) && passwd.matches(partialRegexChecks[0])
-					|| passwd.matches(partialRegexChecks[2]) && passwd.matches(partialRegexChecks[1])
-					|| passwd.matches(partialRegexChecks[2]) && passwd.matches(partialRegexChecks[3])
-					|| passwd.matches(partialRegexChecks[0]) && passwd.matches(partialRegexChecks[1])
-					|| passwd.matches(partialRegexChecks[0]) && passwd.matches(partialRegexChecks[3])
-					|| passwd.matches(partialRegexChecks[1]) && passwd.matches(partialRegexChecks[3])) {
-				level++;
-			}
-
-		
-			if (len > 6 && passwd.matches(partialRegexChecks[2]) && passwd.matches(partialRegexChecks[0])
-					&& passwd.matches(partialRegexChecks[1]) || passwd.matches(partialRegexChecks[2])
-					&& passwd.matches(partialRegexChecks[0]) && passwd.matches(partialRegexChecks[3])
-					|| passwd.matches(partialRegexChecks[2]) && passwd.matches(partialRegexChecks[1])
-					&& passwd.matches(partialRegexChecks[3]) || passwd.matches(partialRegexChecks[0])
-					&& passwd.matches(partialRegexChecks[1]) && passwd.matches(partialRegexChecks[3])) {
-				level++;
-			}
+	
 			//uso de expressões regular para checar o tamanho e se atende a os 4 padrões
 			if (passwd.matches(PASSWORD_PATTERN_FULL)) {
 				level++;
