@@ -69,9 +69,9 @@ public class CheckStrength {
 	 * Check password's strength
 	 * 
 	 * @param passwd
-	 * @return strength level
+	 * @return strength int level
 	 */
-	public static int checkPasswordStrength(String passwd) {
+	public static int checkPasswordLevel(String passwd) {
 		if (StringUtils.equalsNull(passwd)) {
 			throw new IllegalArgumentException("password is empty");
 		}
@@ -234,10 +234,10 @@ public class CheckStrength {
 	 * Get password strength level, includes easy, midium, strong, very strong, extremely strong
 	 * 
 	 * @param passwd
-	 * @return
+	 * @return String with the password Strength
 	 */
-	public static LEVEL getPasswordLevel(String passwd) {
-		int level = checkPasswordStrength(passwd);
+	public static LEVEL getPasswordStrength(String passwd) {
+		int level = checkPasswordLevel(passwd);
 		switch (level) {
 			case 0:
 			case 1:
