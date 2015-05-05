@@ -15,58 +15,53 @@ public class CheckStrength {
 	public enum LEVEL {
             EASY, MIDIUM, STRONG, VERY_STRONG, EXTREMELY_STRONG, WRONG_PASSWORD
         }
+        
+        public Object[] rules;
+        
+        public CheckStrength (Object[] rules) {
+            this.rules = rules;
+        }
 
 	/**
 	 * Check password's strength
 	 * 
 	 * @param passwd
-	 * @return strength int level
+	 * @return strength integer level
 	 */
-	public static int checkPasswordLevel(String passwd) {
-		int level=-1;
-		try {
-			if (StringUtils.equalsNull(passwd)) {
-				throw new IllegalArgumentException("password is empty");
-			}
-			int len = passwd.length();
-			//Aumenta Pontos
-			level = pwdUpLevel(passwd, len);
-			// Diminui pontos
-			level = pwdLowLevel(passwd, len, level);
-
-			if (StringUtils.isCharEqual(passwd)) {
-				level = 0;
-			}
-
-			if (level < 0) {
-				level = 0;
-			}
-
-			return level;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return level=-1;
-		}
-	}
-
-	private static int pwdUpLevel(String passwd, int len) {
-		int level = 0;
-	
-                //uso de expressões regular para checar o tamanho e se atende a os 4 padrões
-                if (passwd.matches(PASSWORD_PATTERN_FULL)) {
-                        level++;
+	public int checkPasswordLevel(String passwd) {
+            int level=-1;
+            try {
+                if (StringUtils.equalsNull(passwd)) {
+                    throw new IllegalArgumentException("password is empty");
                 }
                 
-		return level;
-	}
+                for (Object object : this.rules) {
+                    PwdRules rule = (PwdRules)object;
+                    level += rule.checkStrength(passwd);
+                }
 
+                if (StringUtils.isCharEqual(passwd)) {
+                    level = 0;
+                }
+
+                if (level < 0) {
+                    level = 0;
+                }
+
+                return level;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return level=-1;
+            }
+	}
+        
 	/**
-	 * Get password strength level, includes easy, midium, strong, very strong, extremely strong
+	 * Get password strength level, includes easy, medium, strong, very strong, extremely strong
 	 * 
 	 * @param passwd
 	 * @return String with the password Strength
 	 */
-	public static LEVEL getPasswordStrength(String passwd) {
+	public LEVEL getPasswordStrength(String passwd) {
 		int level = checkPasswordLevel(passwd);
 		switch (level) {
 			case -1:
