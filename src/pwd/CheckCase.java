@@ -73,21 +73,18 @@ public class CheckCase implements PwdRules{
         int upper = countUpperCase(passwd);
         int lower = countLowerCase(passwd);
         
-        if (lower >= 2) {
+        // TODO: Review the code bellow, might not be working as intended
+        if (lower >= 2)
             level++;
             
-            if (lower >= 3) {
-                level++;
-            }
-        }
+        if (lower >= 3)
+            level++;
         
-        if (upper >= 2) {
+        if (upper >= 2)
             level++;
-            
-            if (upper >= 3) {
-                level++;
-            }
-        }
+
+        if (upper >= 3)
+            level++;
         
         return level;
     }
