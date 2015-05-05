@@ -76,6 +76,92 @@ public class CheckStrength {
 			throw new IllegalArgumentException("password is empty");
 		}
 		int len = passwd.length();
+		int level = pwdUpLevel(passwd, len);
+
+		// decrease points
+		level = pwdLowLevel(passwd, len, level);
+
+		if (StringUtils.isCharEqual(passwd)) {
+			level = 0;
+		}
+
+		if (level < 0) {
+			level = 0;
+		}
+
+		return level;
+	}
+
+	private static int pwdLowLevel(String passwd, int len, int level) {
+		if ("abcdefghijklmnopqrstuvwxyz".indexOf(passwd) > 0 || "ABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(passwd) > 0) {
+			level--;
+		}
+		if ("qwertyuiop".indexOf(passwd) > 0 || "asdfghjkl".indexOf(passwd) > 0 || "zxcvbnm".indexOf(passwd) > 0) {
+			level--;
+		}
+		if (StringUtils.isNumeric(passwd) && ("01234567890".indexOf(passwd) > 0 || "09876543210".indexOf(passwd) > 0)) {
+			level--;
+		}
+
+		if (countLetter(passwd, NUM) == len || countLetter(passwd, SMALL_LETTER) == len
+				|| countLetter(passwd, CAPITAL_LETTER) == len) {
+			level--;
+		}
+
+		if (len % 2 == 0) { // aaabbb
+			String part1 = passwd.substring(0, len / 2);
+			String part2 = passwd.substring(len / 2);
+			if (part1.equals(part2)) {
+				level--;
+			}
+			if (StringUtils.isCharEqual(part1) && StringUtils.isCharEqual(part2)) {
+				level--;
+			}
+		}
+		if (len % 3 == 0) { // ababab
+			String part1 = passwd.substring(0, len / 3);
+			String part2 = passwd.substring(len / 3, len / 3 * 2);
+			String part3 = passwd.substring(len / 3 * 2);
+			if (part1.equals(part2) && part2.equals(part3)) {
+				level--;
+			}
+		}
+
+		if (StringUtils.isNumeric(passwd) && len >= 6) { // 19881010 or 881010
+			int year = 0;
+			if (len == 8 || len == 6) {
+				year = Integer.parseInt(passwd.substring(0, len - 4));
+			}
+			int size = StringUtils.sizeOfInt(year);
+			int month = Integer.parseInt(passwd.substring(size, size + 2));
+			int day = Integer.parseInt(passwd.substring(size + 2, len));
+			if (year >= 1950 && year < 2050 && month >= 1 && month <= 12 && day >= 1 && day <= 31) {
+				level--;
+			}
+		}
+
+		if (null != DICTIONARY && DICTIONARY.length > 0) {// dictionary
+			for (int i = 0; i < DICTIONARY.length; i++) {
+				if (passwd.equals(DICTIONARY[i]) || DICTIONARY[i].indexOf(passwd) >= 0) {
+					level--;
+					break;
+				}
+			}
+		}
+
+		if (len <= 6) {
+			level--;
+			if (len <= 4) {
+				level--;
+				if (len <= 3) {
+					level = 0;
+				}
+			}
+		}
+		return level;
+	}
+
+	private static int pwdUpLevel(String passwd, int len) {
 		int level = 0;
 
 		// increase points
@@ -151,82 +237,6 @@ public class CheckStrength {
 				level++;
 			}
 		}
-
-		// decrease points
-		if ("abcdefghijklmnopqrstuvwxyz".indexOf(passwd) > 0 || "ABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(passwd) > 0) {
-			level--;
-		}
-		if ("qwertyuiop".indexOf(passwd) > 0 || "asdfghjkl".indexOf(passwd) > 0 || "zxcvbnm".indexOf(passwd) > 0) {
-			level--;
-		}
-		if (StringUtils.isNumeric(passwd) && ("01234567890".indexOf(passwd) > 0 || "09876543210".indexOf(passwd) > 0)) {
-			level--;
-		}
-
-		if (countLetter(passwd, NUM) == len || countLetter(passwd, SMALL_LETTER) == len
-				|| countLetter(passwd, CAPITAL_LETTER) == len) {
-			level--;
-		}
-
-		if (len % 2 == 0) { // aaabbb
-			String part1 = passwd.substring(0, len / 2);
-			String part2 = passwd.substring(len / 2);
-			if (part1.equals(part2)) {
-				level--;
-			}
-			if (StringUtils.isCharEqual(part1) && StringUtils.isCharEqual(part2)) {
-				level--;
-			}
-		}
-		if (len % 3 == 0) { // ababab
-			String part1 = passwd.substring(0, len / 3);
-			String part2 = passwd.substring(len / 3, len / 3 * 2);
-			String part3 = passwd.substring(len / 3 * 2);
-			if (part1.equals(part2) && part2.equals(part3)) {
-				level--;
-			}
-		}
-
-		if (StringUtils.isNumeric(passwd) && len >= 6) { // 19881010 or 881010
-			int year = 0;
-			if (len == 8 || len == 6) {
-				year = Integer.parseInt(passwd.substring(0, len - 4));
-			}
-			int size = StringUtils.sizeOfInt(year);
-			int month = Integer.parseInt(passwd.substring(size, size + 2));
-			int day = Integer.parseInt(passwd.substring(size + 2, len));
-			if (year >= 1950 && year < 2050 && month >= 1 && month <= 12 && day >= 1 && day <= 31) {
-				level--;
-			}
-		}
-
-		if (null != DICTIONARY && DICTIONARY.length > 0) {// dictionary
-			for (int i = 0; i < DICTIONARY.length; i++) {
-				if (passwd.equals(DICTIONARY[i]) || DICTIONARY[i].indexOf(passwd) >= 0) {
-					level--;
-					break;
-				}
-			}
-		}
-
-		if (len <= 6) {
-			level--;
-			if (len <= 4) {
-				level--;
-				if (len <= 3) {
-					level = 0;
-				}
-			}
-		}
-
-		if (StringUtils.isCharEqual(passwd)) {
-			level = 0;
-		}
-
-		if (level < 0) {
-			level = 0;
-		}
-
 		return level;
 	}
 
