@@ -15,8 +15,9 @@ public class CheckLength implements PwdRules {
         int level = 0;
         int len = password.length();
         
-        if (len == 3)
+        if (len == 3){
             return level;
+        }
         
         level += this.pwdDownLevel(password);
         

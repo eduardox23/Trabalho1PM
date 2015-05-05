@@ -73,33 +73,7 @@ public class CheckCase implements PwdRules{
         
         // TODO: Review the code bellow, might not be working as intended
 
-        
-//        switch(lower){
-//            case 1:
-//                 if (lower >= 2){
-//                        level++;
-//                 }
-//            case 2:
-//                if (lower >= 3){
-//                    level++;
-//                }
-//        
-//        switch (upper){
-//            
-//        case 1:
-//        if (upper >= 2){
-//           level++;
-//         }
-//        
-//        case 2:
-//        if (upper >= 3){
-//            level++;   
-//           }
-//        
-//         }
-//            break;    
-//      }
-//        
+  
       
    }
     
