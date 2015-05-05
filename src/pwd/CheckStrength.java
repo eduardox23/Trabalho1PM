@@ -15,15 +15,6 @@ public class CheckStrength {
 	public enum LEVEL {
             EASY, MIDIUM, STRONG, VERY_STRONG, EXTREMELY_STRONG, WRONG_PASSWORD
         }
-	
-	private static //Parametros de teste
-	String[] partialRegexChecks = { ".*[a-z]+.*", // lowercase
-			".*[A-Z]+.*", // upperCase
-			".*[\\d]+.*", // Numéricos
-			".*[@#$%]+.*" // simbolos
-	};
-	
-	private static final String PASSWORD_PATTERN_FULL = "((?=.*[a-z])(?=.*\\d)(?=.*[A-Z])(?=.*[@#$%!]).{8,40})";
 
 	/**
 	 * Check password's strength
@@ -65,21 +56,7 @@ public class CheckStrength {
                 if (passwd.matches(PASSWORD_PATTERN_FULL)) {
                         level++;
                 }
-		
-			if (countLetter(passwd, OTHER_CHAR) >= 3) {
-				level++;
-			}
-			if (countLetter(passwd, OTHER_CHAR) >= 6) {
-				level++;
-			}
-		
-			if (len > 12) {
-				level++;
-				if (len >= 16) {
-					level++;
-				}
-			}
-		}
+                
 		return level;
 	}
 
