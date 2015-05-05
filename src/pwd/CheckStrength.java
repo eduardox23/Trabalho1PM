@@ -20,6 +20,16 @@ public class CheckStrength {
 	private static final int SMALL_LETTER = 2;
 	private static final int CAPITAL_LETTER = 3;
 	private static final int OTHER_CHAR = 4;
+	
+	private static //Parametros de teste
+	String[] partialRegexChecks = { ".*[a-z]+.*", // lowercase
+			".*[A-Z]+.*", // upperCase
+			".*[\\d]+.*", // Numéricos
+			".*[@#$%]+.*" // simbolos
+	};
+	
+	private static final String PASSWORD_PATTERN_FULL = "((?=.*[a-z])(?=.*\\d)(?=.*[A-Z])(?=.*[@#$%!]).{8,40})";
+
 
 	/**
 	 * Simple password dictionary
@@ -171,10 +181,10 @@ public class CheckStrength {
 		int level = 0;
 
 		if(len <= 4 ){
-			if (countLetter(passwd, NUM) > 0) {
+			if (passwd.matches(partialRegexChecks[0])) {
 				level++;
 			}
-			if (countLetter(passwd, SMALL_LETTER) > 0) {
+			if (passwd.matches(partialRegexChecks[2])) {
 				level++;
 			}
 			//repete esse código em relação ao de baixo pois pode se ter pwd com 4simbolos
@@ -184,36 +194,36 @@ public class CheckStrength {
 			
 		}else{
 			
-			if (len > 4 && countLetter(passwd, CAPITAL_LETTER) > 0) {
+			if (len > 4 && passwd.matches(partialRegexChecks[1])) {
 				level++;
 			}
-			if (len > 6 && countLetter(passwd, OTHER_CHAR) > 0) {
+			if (len > 6 && passwd.matches(partialRegexChecks[3])) {
 				level++;
 			}
 			
 			//devemos manter cada check desse , que se repete para o mesmo tamanho de pwd ? ou mudar pra checar se occorre qualquer um
 			//com regexpress
 			
-			if (len > 4 && countLetter(passwd, NUM) > 0 && countLetter(passwd, SMALL_LETTER) > 0
-					|| countLetter(passwd, NUM) > 0 && countLetter(passwd, CAPITAL_LETTER) > 0
-					|| countLetter(passwd, NUM) > 0 && countLetter(passwd, OTHER_CHAR) > 0
-					|| countLetter(passwd, SMALL_LETTER) > 0 && countLetter(passwd, CAPITAL_LETTER) > 0
-					|| countLetter(passwd, SMALL_LETTER) > 0 && countLetter(passwd, OTHER_CHAR) > 0
-					|| countLetter(passwd, CAPITAL_LETTER) > 0 && countLetter(passwd, OTHER_CHAR) > 0) {
+			if (len > 4 && passwd.matches(partialRegexChecks[2]) && passwd.matches(partialRegexChecks[0])
+					|| passwd.matches(partialRegexChecks[2]) && passwd.matches(partialRegexChecks[1])
+					|| passwd.matches(partialRegexChecks[2]) && passwd.matches(partialRegexChecks[3])
+					|| passwd.matches(partialRegexChecks[0]) && passwd.matches(partialRegexChecks[1])
+					|| passwd.matches(partialRegexChecks[0]) && passwd.matches(partialRegexChecks[3])
+					|| passwd.matches(partialRegexChecks[1]) && passwd.matches(partialRegexChecks[3])) {
 				level++;
 			}
+
 		
-			if (len > 6 && countLetter(passwd, NUM) > 0 && countLetter(passwd, SMALL_LETTER) > 0
-					&& countLetter(passwd, CAPITAL_LETTER) > 0 || countLetter(passwd, NUM) > 0
-					&& countLetter(passwd, SMALL_LETTER) > 0 && countLetter(passwd, OTHER_CHAR) > 0
-					|| countLetter(passwd, NUM) > 0 && countLetter(passwd, CAPITAL_LETTER) > 0
-					&& countLetter(passwd, OTHER_CHAR) > 0 || countLetter(passwd, SMALL_LETTER) > 0
-					&& countLetter(passwd, CAPITAL_LETTER) > 0 && countLetter(passwd, OTHER_CHAR) > 0) {
+			if (len > 6 && passwd.matches(partialRegexChecks[2]) && passwd.matches(partialRegexChecks[0])
+					&& passwd.matches(partialRegexChecks[1]) || passwd.matches(partialRegexChecks[2])
+					&& passwd.matches(partialRegexChecks[0]) && passwd.matches(partialRegexChecks[3])
+					|| passwd.matches(partialRegexChecks[2]) && passwd.matches(partialRegexChecks[1])
+					&& passwd.matches(partialRegexChecks[3]) || passwd.matches(partialRegexChecks[0])
+					&& passwd.matches(partialRegexChecks[1]) && passwd.matches(partialRegexChecks[3])) {
 				level++;
 			}
-		
-			if (len > 8 && countLetter(passwd, NUM) > 0 && countLetter(passwd, SMALL_LETTER) > 0
-					&& countLetter(passwd, CAPITAL_LETTER) > 0 && countLetter(passwd, OTHER_CHAR) > 0) {
+			//uso de expressões regular para checar o tamanho e se atende a os 4 padrões
+			if (passwd.matches(PASSWORD_PATTERN_FULL)) {
 				level++;
 			}
 		
