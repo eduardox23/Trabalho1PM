@@ -69,49 +69,38 @@ public class CheckCase implements PwdRules{
         
         int upper = countUpperCase(passwd);
         int lower = countLowerCase(passwd);
+         return level;
         
         // TODO: Review the code bellow, might not be working as intended
-//        if (lower >= 2)
-//            level++;
+
+        
+//        switch(lower){
+//            case 1:
+//                 if (lower >= 2){
+//                        level++;
+//                 }
+//            case 2:
+//                if (lower >= 3){
+//                    level++;
+//                }
+//        
+//        switch (upper){
 //            
-//        if (lower >= 3)
-//            level++;
+//        case 1:
+//        if (upper >= 2){
+//           level++;
+//         }
 //        
-//        if (upper >= 2)
-//            level++;
-//
-//        if (upper >= 3)
-//            level++;
+//        case 2:
+//        if (upper >= 3){
+//            level++;   
+//           }
 //        
-//        return level;
-        
-        switch(lower){
-            case 1:
-                 if (lower >= 2){
-                        level++;
-                 }
-            case 2:
-                if (lower >= 3){
-                    level++;
-                }
-        
-        switch (upper){
-            
-        case 1:
-        if (upper >= 2){
-           level++;
-         }
-        
-        case 2:
-        if (upper >= 3){
-            level++;   
-           }
-        
-         }
-            break;    
-      }
-        
-        return level;
+//         }
+//            break;    
+//      }
+//        
+      
    }
     
     private int countPattern(String passwd, String str_pattern) {
