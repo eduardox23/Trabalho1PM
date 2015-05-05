@@ -72,24 +72,31 @@ public class CheckStrength {
 	 * @return strength int level
 	 */
 	public static int checkPasswordLevel(String passwd) {
-		if (StringUtils.equalsNull(passwd)) {
-			throw new IllegalArgumentException("password is empty");
+		int level=-1;
+		try {
+			if (StringUtils.equalsNull(passwd)) {
+				throw new IllegalArgumentException("password is empty");
+			}
+			int len = passwd.length();
+			//Aumenta Pontos
+			level = pwdUpLevel(passwd, len);
+			// Diminui pontos
+			level = pwdLowLevel(passwd, len, level);
+
+			if (StringUtils.isCharEqual(passwd)) {
+				level = 0;
+			}
+
+			if (level < 0) {
+				level = 0;
+			}
+
+			return level;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return level=-1;
 		}
-		int len = passwd.length();
-		int level = pwdUpLevel(passwd, len);
-
-		// decrease points
-		level = pwdLowLevel(passwd, len, level);
-
-		if (StringUtils.isCharEqual(passwd)) {
-			level = 0;
-		}
-
-		if (level < 0) {
-			level = 0;
-		}
-
-		return level;
 	}
 
 	private static int pwdLowLevel(String passwd, int len, int level) {
