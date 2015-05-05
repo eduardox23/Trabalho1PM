@@ -21,35 +21,27 @@ public class CheckLengthTest {
     public CheckLengthTest() {
     }
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
-    /**
-     * Test of checkStrength method, of class CheckLength.
-     */
+   
     @Test
-    public void testCheckStrength() {
+    public void testCheckStrengthlevel03() {
         System.out.println("checkStrength");
-        String password = "";
+        String password = "dashbprnn98#$jjfsdl";
         CheckLength instance = new CheckLength();
-        int expResult = 0;
+        int expResult = 3;
         int result = instance.checkStrength(password);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+      
+    }
+    
+     @Test
+    public void testCheckStrengthlevel04() {
+        System.out.println("checkStrength");
+        String password = "dashbprnn98#$jjfsdl46456456894646544fsdfs6545(*&¨%¨$¨%";
+        CheckLength instance = new CheckLength();
+        int expResult = 6;
+        int result = instance.checkStrength(password);
+        assertEquals(expResult, result);
+      
     }
     
 }
