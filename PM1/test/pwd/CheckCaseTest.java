@@ -30,4 +30,15 @@ public class CheckCaseTest {
      
     }
     
+      @Test
+    public void testCheckStrengthLevel2() {
+        System.out.println("checkStrength");
+        String passwd = "dashb9585";
+        CheckCase instance = new CheckCase();
+        int expResult = 4;
+        int result = instance.checkStrength(passwd);
+        assertEquals(expResult, result);
+     
+    }
+    
 }
