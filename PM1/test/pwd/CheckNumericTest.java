@@ -33,9 +33,20 @@ public class CheckNumericTest {
         System.out.println("checkStrength");
         String password = "abclkaskldja9655@";
         CheckNumeric instance = new CheckNumeric();
-        int expResult = 0;
+        int expResult = 1;
         int result = instance.checkStrength(password);
         assertEquals(expResult, result);
+    }
+    
+    @Test
+    public void testCheckStrength() {
+        System.out.println("checkStrength");
+        String passwd = "";
+        CheckCase instance = new CheckCase();
+        int expResult = 0;
+        int result = instance.checkStrength(passwd);
+        assertEquals(expResult, result);
+        
     }
     
     

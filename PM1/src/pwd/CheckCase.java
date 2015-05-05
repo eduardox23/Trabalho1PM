@@ -34,11 +34,7 @@ public class CheckCase implements PwdRules{
             level--;
         }
         
-        if ("qwertyuiop".indexOf(passwd) > 0 ||
-                "asdfghjkl".indexOf(passwd) > 0 ||
-                "zxcvbnm".indexOf(passwd) > 0) {
-            level--;
-        }
+        
         
         if (upper == len || lower == len)
             level --;
