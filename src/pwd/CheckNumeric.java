@@ -25,8 +25,8 @@ public class CheckNumeric implements PwdRules {
     public int checkStrength(String password) {
         int level = 0;
         
-        level += this.pwdDownLevel(password);
-        level += this.pwdUpLevel(password);
+        level += pwdDownLevel(password);
+        level += pwdUpLevel(password);
         
         return level;
     }
@@ -63,7 +63,7 @@ public class CheckNumeric implements PwdRules {
     private int pwdDownLevel(String password) {
         int level = 0;
         int len = password.length();
-        int counter = this.countNumerics(password);
+        int counter = countNumerics(password);
         
         if (counter == len)
             level--;
@@ -74,7 +74,7 @@ public class CheckNumeric implements PwdRules {
         if ("09876543210".indexOf(password) > 0)
             level--;
         
-        if (this.isYear(password))
+        if (isYear(password))
             level--;
         
         return level;
@@ -84,7 +84,7 @@ public class CheckNumeric implements PwdRules {
         int level = 0;
         int len = password.length();
         
-        int counter = this.countNumerics(password);
+        int counter = countNumerics(password);
         
         if (counter > 0 && len != counter) {
             level++;

@@ -140,15 +140,6 @@ public class CheckStrength {
 			}
 		}
 
-		if (null != DICTIONARY && DICTIONARY.length > 0) {// dictionary
-			for (int i = 0; i < DICTIONARY.length; i++) {
-				if (passwd.equals(DICTIONARY[i]) || DICTIONARY[i].indexOf(passwd) >= 0) {
-					level--;
-					break;
-				}
-			}
-		}
-
 		return level;
 	}
 
