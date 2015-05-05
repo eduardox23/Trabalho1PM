@@ -5,10 +5,7 @@
  */
 package pwd;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -21,35 +18,25 @@ public class CheckNumericTest {
     public CheckNumericTest() {
     }
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
     
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
-    /**
-     * Test of checkStrength method, of class CheckNumeric.
-     */
     @Test
-    public void testCheckStrength() {
+    public void testCheckStrengthPwdLevel1() {
         System.out.println("checkStrength");
-        String password = "";
+        String password = "abc";
         CheckNumeric instance = new CheckNumeric();
         int expResult = 0;
         int result = instance.checkStrength(password);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
+     @Test
+    public void testCheckStrengthPwdLevel2() {
+        System.out.println("checkStrength");
+        String password = "abclkaskldja9655@";
+        CheckNumeric instance = new CheckNumeric();
+        int expResult = 0;
+        int result = instance.checkStrength(password);
+        assertEquals(expResult, result);
+    }
+    
     
 }
